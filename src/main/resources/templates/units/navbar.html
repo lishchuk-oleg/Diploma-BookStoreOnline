@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar</title>
+</head>
+<body>
+
+<div th:fragment="copy">
+
+    <div sec:authorize="isAnonymous()">
+
+        <nav class="navbar navbar-expand-md fixed-top" style="height: 60px">
+            <a class="navbar-brand" th:href="@{/}">
+                <img th:src="@{/images/image-brand.png}" alt="Book-online" id="brand">
+            </a>
+
+            <div th:insert="~{units/search::all-over}"></div>
+
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav ">
+                    <li class="nav-item">
+                        <a th:href="@{/}" class="btn btn-outline-secondary" type="button"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/library}" class="btn btn-outline-secondary" type="button"><i class="fa fa-book" aria-hidden="true"></i> Library</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/library/registration}" class="btn btn-outline-secondary" type="button"><i class="fa fa-unlock" aria-hidden="true"></i> Registration</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div th:insert="~{client/units/button-menu-anonymous::copy}"></div>
+
+    </div>
+
+    <div sec:authorize="hasRole('ROLE_USER')">
+
+        <div th:insert="~{units/navbar-user::copy}"></div>
+
+    </div>
+
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+
+        <div th:insert="~{units/navbar-admin::copy}"></div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

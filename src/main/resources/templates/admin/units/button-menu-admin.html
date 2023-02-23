@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Size</title>
+</head>
+<body>
+
+<div th:fragment="copy">
+
+    <div class="row">
+        <div class="col-9">
+
+            <div id="admin-button" class="btn-group" role="group">
+                <a class="btn btn-primary" th:href="@{/items/page/1?state=ALL}" role="button">ALL <i
+                        class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                <button type="button" class="btn btn-secondary"
+                        style="background-color: rgba(28,28,28,0);border: 0"></button>
+                <a class="btn btn-primary" th:href="@{/items/page/1?state=CREATE}" role="button">Create <i
+                        class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                <button type="button" class="btn btn-secondary"
+                        style="background-color: rgba(28,28,28,0);border: 0"></button>
+                <a class="btn btn-primary" th:href="@{/items/page/1?state=PROGRESS}" role="button">PROGRESS <i
+                        class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                <button type="button" class="btn btn-secondary"
+                        style="background-color: rgba(28,28,28,0);border: 0"></button>
+                <a class="btn btn-primary" th:href="@{/items/page/1?state=EXECUTED}" role="button">EXECUTED <i
+                        class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                <button type="button" class="btn btn-secondary"
+                        style="background-color: rgba(28,28,28,0);border: 0"></button>
+                <a class="btn btn-primary" th:href="@{/items/page/1?state=CANCELLED}" role="button">CANCELLED <i
+                        class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+
+                <button type="button" class="btn btn-secondary"
+                        style="background-color: rgba(28,28,28,0);border: 0"></button>
+
+                <div th:if="${list!=null and !list.isEmpty()}">
+
+                    <div th:insert="~{units/size::copy}"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-3">
+            <div id="button-with-user-name" class="btn-group" role="group">
+                <div><a class="btn btn-info" th:href="@{/admin}" role="button"><i class="fa fa-user icon"></i> <span sec:authentication="name"/> </a>
+                </div>
+
+                <div th:insert="~{security/logout::admin}"></div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <br>
+
+</div>
+
+</body>
+</html>

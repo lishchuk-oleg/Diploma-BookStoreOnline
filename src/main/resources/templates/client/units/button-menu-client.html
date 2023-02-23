@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Button menu client</title>
+</head>
+<body>
+
+<div th:fragment="copy">
+
+    <div class="row">
+        <div class="col-4">
+
+            <div id="client-button" class="btn-group" role="group">
+
+                <div th:if="${cart!=null and !cart.isEmpty()}">
+
+                    <a class="btn btn-primary" th:href="@{/client/cart}" role="button">Cart <i
+                            class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                    <button type="button" class="btn btn-secondary"
+                            style="background-color: rgba(28,28,28,0);border: 0"></button>
+                </div>
+
+                <div class="dropdown">
+                    <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        My orders <i class="fa fa-folder-open" aria-hidden="true"></i>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/client/item/page/1?state=ALL}">All</a></li>
+                        <li><a class="dropdown-item" th:href="@{/client/item/page/1?state=CREATE}">Create</a></li>
+                        <li><a class="dropdown-item" th:href="@{/client/item/page/1?state=CHANGING}">Changing</a></li>
+                        <li><a class="dropdown-item" th:href="@{/client/item/page/1?state=PROGRESS}">Progress</a></li>
+                        <li><a class="dropdown-item" th:href="@{/client/item/page/1?state=EXECUTED}">Executed</a></li>
+                        <li><a class="dropdown-item" th:href="@{/client/item/page/1?state=CANCELLED}">Cancelled</a></li>
+                    </ul>
+                </div>
+
+                <button type="button" class="btn btn-secondary"
+                        style="background-color: rgba(28,28,28,0);border: 0"></button>
+
+                <div th:if="${list!=null and !list.isEmpty()}">
+
+                    <div th:insert="~{units/size::copy}"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-5">
+        </div>
+
+        <div class="col-3">
+            <div id="button-with-user-name" class="btn-group" role="group">
+                <div><a class="btn btn-info" th:href="@{/client}" role="button"><i class="fa fa-user icon"></i> <span
+                        sec:authentication="name"/> </a></div>
+
+                <div th:insert="~{security/logout::user}"></div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Books search</title>
+</head>
+<body>
+<div th:insert="~{units/bootstrap::copy}"></div>
+
+<div th:insert="~{units/navbar::copy}"></div>
+
+<div id="author_in_alert" class="alert alert-primary" role="alert">
+    <h2 th:text="${search}"></h2>
+</div>
+
+<br>
+
+<div th:if="${list==null or list.isEmpty()}">
+
+    <div id="no_data_found" class="alert alert-primary" role="alert">
+        <h3>No data was found for your query</h3>
+        <h3>Please <a th:href="@{/library}">specify</a> your request</h3>
+    </div>
+
+</div>
+
+
+<div th:if="${list!=null and !list.isEmpty()}">
+
+    <div id="table" class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th th:replace="units/sorting :: sorting('author_name','Author name')"></th>
+                <th th:replace="units/sorting :: sorting('author_surname','Author surname')"></th>
+                <th th:replace="units/sorting :: sorting('name','Title')"></th>
+
+                <div th:if="${genre=='all'}">
+                    <th th:replace="units/sorting :: sorting('genreBook','Genre')"></th>
+                </div>
+
+                <th th:replace="units/sorting :: sorting('year','Year')"></th>
+                <th th:replace="units/sorting :: sorting('price','Price')"></th>
+                <th scope="col">Cart</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <div th:each="entity,state : ${list}">
+                <tr>
+                    <td th:text="${state.count+size*list.getNumber()}"></td>
+                    <td th:text="${entity.author.name}"></td>
+                    <td th:text="${entity.author.surname}"></td>
+                    <td th:text="${entity.name}"></td>
+
+                    <div th:if="${genre=='all'}">
+                    <td th:text="${entity.genreBook}"></td>
+                    </div>
+
+                    <td th:text="${entity.year}"></td>
+                    <td th:text="${entity.price}"></td>
+
+                    <div th:if="${entity.amount!=0}">
+                    <td>
+                        <a th:href="@{{uri_client}/books/{id}/cart(id=${entity.id}, uri_client=${uri_client})}"
+                           class="btn btn-primary" type="button"><i class="fa fa-shopping-cart"
+                                                                    aria-hidden="true"></i> </a>
+                    </td>
+                    </div>
+
+                    <div th:if="${entity.amount==0}">
+                        <td>Not yet available</td>
+                    </div>
+
+                    <td th:if="${itemsId!=null and !itemsId.isEmpty()}">
+                        <div th:if="${itemsId.contains(entity.id)}">
+                            <form th:method="DELETE"
+                                  th:action="@{{uri_client}/cart/{id}(id=${entity.id},uri_client=${uri_client})}"
+                                  class="row g-3">
+                                <div class="col-12">
+                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                </div>
+                            </form>
+                        </div>
+                    </td>
+
+                </tr>
+            </div>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div id="pagin">
+
+    <th:block th:replace="units/paginate :: pagination(${list})"></th:block>
+
+</div>
+
+
+</body>
+</html>

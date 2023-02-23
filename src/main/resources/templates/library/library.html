@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Library</title>
+</head>
+<body id="library">
+
+<div th:insert="~{units/bootstrap::copy}"></div>
+
+<div th:insert="~{units/navbar::copy}"></div>
+
+<div class="container-fluid" id="blockundervavbar">
+    <div class="row">
+        <div class="col-2">
+            <div class="list-group" id="block1">
+
+                <b><a th:href="@{{uri}/books/page/1?genre=all (uri=${uri})}"
+                      class="list-group-item list-group-item-action">All books</a></b>
+
+                <div th:each="genre : ${genres}">
+                    <tr>
+                        <a th:href="@{{uri}/books/page/1?genre={genre}(uri=${uri},genre=${genre.toUpperCase()})}"
+                           th:text="${genre}" class="list-group-item list-group-item-action"></a>
+                    </tr>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+
+            <div th:insert="~{library/units/carousel::copy}"></div>
+
+        </div>
+
+        <div class="col-4">
+
+
+        </div>
+
+
+        <div class="col-2">
+
+            <div class="list-group" id="alphabet">
+
+                <b><a th:href="@{{uri}/authors/page/1?letter=all (uri=${uri})}"
+                      class="list-group-item list-group-item-action">All authors</a></b>
+
+                <div th:each="letter : ${alphabet}">
+                    <a th:href="@{{uri}/authors/page/1?letter={letter}(uri=${uri},letter=${letter})}"
+                       th:text="${letter}" class="list-group-item list-group-item-action"></a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div id="footer-date" th:insert="~{units/date::copy}"></div>
+
+</body>
+</html>

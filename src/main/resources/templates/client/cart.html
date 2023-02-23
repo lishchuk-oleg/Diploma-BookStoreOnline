@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All books</title>
+</head>
+<body>
+
+<div th:insert="~{units/bootstrap::copy}"></div>
+
+<div th:insert="~{units/navbar::copy}"></div>
+
+<div th:if="${list==null or list.isEmpty()}">
+
+    <div id="cart_in_alert" class="alert alert-primary" role="alert">
+        <h1> Cart is empty</h1>
+    </div>
+
+</div>
+
+<div th:if="${list!=null and !list.isEmpty()}">
+
+    <div id="author_in_alert" class="alert alert-primary" role="alert">
+        <h1>Cart</h1>
+    </div>
+
+    <br>
+
+    <div id="table" class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Author name</th>
+                <th scope="col">Author surname</th>
+                <th scope="col">Title</th>
+                <th scope="col">Genre</th>
+                <th scope="col">Year</th>
+                <th scope="col">Price</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <div th:each="entity,state : ${list}">
+                <tr>
+                    <td th:text="${state.count}"></td>
+                    <td th:text="${entity.author.name}"></td>
+                    <td th:text="${entity.author.surname}"></td>
+                    <td th:text="${entity.name}"></td>
+                    <td th:text="${entity.genreBook}"></td>
+                    <td th:text="${entity.year}"></td>
+                    <td th:text="${entity.price}"></td>
+
+                    <td>
+                        <form th:method="DELETE" th:action="@{{uri}/cart/{id}(id=${entity.id},uri=${uri})}"
+                              class="row g-3">
+                            <div class="col-12">
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </div>
+                        </form>
+                    </td>
+
+                </tr>
+            </div>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div th:if="${list!=null and !list.isEmpty()}">
+
+    <div id="sum" class="alert alert-primary" role="alert">
+        <h5>The order amount is <b th:text="${sum}"></b></h5>
+    </div>
+
+    <a class="btn btn-primary" style="width: 200px" th:href="@{{uri}/cart/item(uri=${uri})}" role="button">Create the
+        order <i
+                class="fa fa-book"
+                aria-hidden="true"></i></a>
+    <br><br>
+
+    <a class="btn btn-danger" style="width: 200px" th:href="@{{uri}/cart/clear(uri=${uri})}" role="button">Clear cart <i
+            class="fa fa-trash"
+            aria-hidden="true"></i></a>
+
+</div>
+
+
+</body>
+</html>

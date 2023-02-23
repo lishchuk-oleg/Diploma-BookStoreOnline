@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Books in this item</title>
+</head>
+<body>
+<div th:insert="~{units/bootstrap::copy}"></div>
+
+<div th:insert="~{units/navbar-admin::copy}"></div>
+
+<br>
+
+<div th:if="${list==null or list.isEmpty()}">
+
+    <div id="no_data_found" class="alert alert-primary" role="alert">
+        <h3>Order is empty</h3>
+    </div>
+
+</div>
+
+<div id="inf_order_in_alert" class="alert alert-primary" role="alert">
+    Information about order:<br>
+    ID: <b th:text="${item.id}"></b><br>
+    login: <b th:text="${item.user.login}"></b><br>
+    state: <b th:text="${item.state}"></b>
+</div>
+
+<div th:insert="~{admin/units/button-state-admin::copy}"></div>
+
+<br>
+
+<div th:if="${list!=null and !list.isEmpty()}">
+
+    <div id="table" class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th th:replace="units/sorting :: sorting('author_name','Author name')"></th>
+                <th th:replace="units/sorting :: sorting('author_surname','Author surname')"></th>
+                <th th:replace="units/sorting :: sorting('name','Title')"></th>
+                <th th:replace="units/sorting :: sorting('genreBook','Genre')"></th>
+                <th th:replace="units/sorting :: sorting('year','Year')"></th>
+                <div th:if="${item.state.toString()=='PROGRESS'}">
+                    <th scope="col">Action</th>
+                </div>
+            </tr>
+            </thead>
+            <tbody>
+            <div th:each="entity,state : ${list}">
+                <tr>
+                    <td th:text="${state.count+size*list.getNumber()}"></td>
+                    <td th:text="${entity.author.name}"></td>
+                    <td th:text="${entity.author.surname}"></td>
+                    <td th:text="${entity.name}"></td>
+                    <td th:text="${entity.genreBook}"></td>
+                    <td th:text="${entity.year}"></td>
+
+                    <div th:if="${item.state.toString()=='PROGRESS'}">
+                        <td>
+                            <form th:method="DELETE"
+                                  th:action="@{{uri}/{id}/books/{id_book}(id=${item.id},id_book=${entity.id},uri=${uri})}"
+                                  class="row g-3">
+                                <div class="col-12">
+                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                </div>
+                            </form>
+                        </td>
+                    </div>
+
+                </tr>
+
+            </div>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="sum" class="alert alert-primary" role="alert">
+        <h5>The order amount is <b th:text="${item.price}"></b></h5>
+    </div>
+
+</div>
+
+<div th:if="${item.state.toString()=='EXECUTED' or item.state.toString()=='CANCELLED'}">
+    <form th:method="DELETE"
+          th:action="@{{uri}/{id} (id=${item.id},uri=${uri})}"
+          class="row g-3">
+        <div class="col-12">
+            <button class="btn btn-danger" type="submit">Delete order</button>
+        </div>
+    </form>
+</div>
+
+<div id="pagin">
+
+    <th:block th:replace="units/paginate :: pagination(${list})"></th:block>
+
+</div>
+
+
+</body>
+</html>

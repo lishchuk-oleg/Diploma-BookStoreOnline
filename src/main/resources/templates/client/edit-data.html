@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit client</title>
+</head>
+<body>
+
+<div th:insert="~{units/bootstrap::copy}"></div>
+
+<div th:insert="~{units/navbar::copy}"></div>
+
+<h1 style="text-align:center">Please fill out this form to <span class="badge text-bg-danger">edit</span> your data</h1>
+
+<div th:if="${message!=null}">
+
+    <div id="cart_in_alert" class="alert alert-primary" role="alert">
+        <h5 th:text="${message}"></h5>
+    </div>
+
+</div>
+
+<div class="container-fluid" id="form">
+    <form th:method="PATCH" th:action="@{{uri}/edit/data(uri=${uri})}" class="row g-3" th:object="${object}">
+        <div class="col-md-5">
+            <label for="name">Name</label>
+            <input type="text" th:field="*{name}" id="name" class="form-control" style="color: coral"/>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-danger"
+                 role="alert"/>
+        </div>
+
+        <div class="col-md-5">
+            <label for="surname">Surname</label>
+            <input type="text" th:field="*{surname}" id="surname" class="form-control" style="color: coral"/>
+            <div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="alert alert-danger"
+                 role="alert"/>
+        </div>
+
+        <div class="col-md-5">
+            <label for="password">Password to confirm changes</label>
+            <input type="password" name="password" id="password" class="form-control" style="color: coral"/>
+            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-danger"
+                 role="alert"/>
+        </div>
+
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit">Update</button>
+        </div>
+    </form>
+</div>
+
+<br><br><br>
+
+<!--<div class="container-fluid" id="form-delete">
+    <form th:method="DELETE" th:action="@{{uri}/{id}(id=${object.id},uri=${uri})}" class="row g-3">
+        <div class="col-12">
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </div>
+    </form>
+</div>-->
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Button state client</title>
+</head>
+<body>
+
+<div th:fragment="copy">
+
+    <div th:if="${item!=null}">
+
+        <div id="admin-button" class="btn-group" role="group">
+
+            <div th:if="${item.state.toString()=='CREATE'}">
+                <a class="btn btn-primary" th:href="@{{uri}/item/{id}?state=CHANGING (id=${item.id},uri=${uri})}"
+                   role="button">CHANGING <i
+                        class="fa fa-share" aria-hidden="true"></i></a>
+            </div>
+
+            <div th:if="${item.state.toString()=='CHANGING'}">
+                <a class="btn btn-primary" th:href="@{{uri}/item/{id}?state=CREATE (id=${item.id},uri=${uri})}"
+                   role="button">CREATE <i
+                        class="fa fa-share" aria-hidden="true"></i></a>
+                <button type="button" class="btn btn-secondary"
+                        style="background-color: rgba(28,28,28,0);border: 0"></button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

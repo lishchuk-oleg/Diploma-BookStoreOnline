@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Size</title>
+</head>
+<body>
+
+<div th:fragment="copy">
+
+    <div class="dropdown">
+        <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+           aria-expanded="false">
+            Number of item
+        </a>
+
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item"
+                   th:href="@{{path}/1?sortField={sortField}&sortDir={sortDir}&size=5(path=${path},sortField=${sortField},sortDir=${sortDir})}">5
+                items on the page</a></li>
+            <li><a class="dropdown-item"
+                   th:href="@{{path}/1?sortField={sortField}&sortDir={sortDir}&size=10(path=${path},sortField=${sortField},sortDir=${sortDir})}">10
+                items on the page</a></li>
+            <li><a class="dropdown-item"
+                   th:href="@{{path}/1?sortField={sortField}&sortDir={sortDir}&size=15(path=${path},sortField=${sortField},sortDir=${sortDir})}">15
+                items on the page</a></li>
+            <li><a class="dropdown-item"
+                   th:href="@{{path}/1?sortField={sortField}&sortDir={sortDir}&size=20(path=${path},sortField=${sortField},sortDir=${sortDir})}">20
+                items on the page</a></li>
+            <li><a class="dropdown-item"
+                   th:href="@{{path}/1?sortField={sortField}&sortDir={sortDir}&size=25(path=${path},sortField=${sortField},sortDir=${sortDir})}">25
+                items on the page</a></li>
+        </ul>
+    </div>
+
+</div>
+
+</body>
+</html>

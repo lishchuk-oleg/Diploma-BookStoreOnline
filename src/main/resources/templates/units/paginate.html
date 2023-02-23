@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagination</title>
+</head>
+<body>
+
+<th:block th:fragment="pagination(pagedObject)">
+
+    <!-- works with org.springframework.data.domain.Page<pagedObject>, -->
+<div style="display: inline-block">
+
+    <div th:if="${pagedObject.getTotalPages() > 1}" class="form-group col-md-11 pagination-centered">
+        <ul class="pagination">
+            <!-- page number start with 0, totalPages returns actual number of pages -->
+            <li th:classappend="${pagedObject.getNumber() == 0} ? disabled" class="page-item">
+                <a class="page-link" th:href="@{{path}/{id}?sortField={sortField}&sortDir={sortDir}&size={size}(path=${path},id=1,sortField=${sortField},sortDir=${sortDir},size=${size})}">&laquo;</a>
+            </li>
+            <li th:classappend="${pagedObject.getNumber() == 0} ? disabled" class="page-item">
+                <a class="page-link"
+                   th:href="@{{path}/{id}?sortField={sortField}&sortDir={sortDir}&size={size}(path=${path},id=${pagedObject.getNumber()},sortField=${sortField},sortDir=${sortDir},size=${size})}">&larr;</a>
+            </li>
+            <li th:classappend="${pagedObject.getNumber() == (page)} ? 'active pointer-disabled'"
+                th:each="page : ${#numbers.sequence(0, pagedObject.getTotalPages() -1)}" class="page-item">
+                <a class="page-link" th:href="@{{path}/{id}?sortField={sortField}&sortDir={sortDir}&size={size}(path=${path},id=${page+1},sortField=${sortField},sortDir=${sortDir},size=${size})}"
+                   th:text="${page + 1}"></a>
+            </li>
+            <li th:classappend="${pagedObject.getNumber() + 1 == pagedObject.getTotalPages()} ? disabled"
+                class="page-item">
+                <a class="page-link"
+                   th:href="@{{path}/{id}?sortField={sortField}&sortDir={sortDir}&size={size}(path=${path},id=${pagedObject.getNumber() + 2},sortField=${sortField},sortDir=${sortDir},size=${size})}">&rarr;</a>
+            </li>
+            <li th:classappend="${pagedObject.getNumber() + 1 == pagedObject.getTotalPages()} ? disabled"
+                class="page-item">
+                <a class="page-link"
+                   th:href="@{{path}/{id}?sortField={sortField}&sortDir={sortDir}&size={size}(path=${path},id=${pagedObject.getTotalPages()},sortField=${sortField},sortDir=${sortDir},size=${size})}">&raquo;</a>
+            </li>
+        </ul>
+
+        <p class="text-muted small">
+            <span style="color: black; text-align:center;background: blanchedalmond">
+            Showing page <span th:text="${pagedObject.getNumber() +1}"></span> of <span
+                    th:text="${pagedObject.getTotalPages()}"></span>.
+                <br>
+            Total: <span th:text="${pagedObject.getTotalElements()}"></span>.
+                </span>
+        </p>
+    </div>
+
+</div>
+
+</th:block>
+
+
+</body>
+</html>

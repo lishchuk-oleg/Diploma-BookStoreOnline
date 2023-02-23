@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body id="admin">
+
+<div th:insert="~{units/bootstrap::copy}"></div>
+
+<div th:insert="~{units/navbar-admin::copy}"></div>
+
+<div id="inf_user_in_alert" class="alert alert-primary" role="alert">
+    Your owner information:<br>
+    name: <b th:text="${user.name}"></b><br>
+    surname: <b th:text="${user.surname}"></b><br>
+    login: <b th:text="${user.login}"></b><br>
+    role: <b>Admin</b><br>
+    email: <b th:text="${user.email}"></b>
+</div>
+
+</body>
+</html>

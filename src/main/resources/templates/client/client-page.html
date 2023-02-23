@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Client page</title>
+</head>
+<body id="client">
+
+<div th:insert="~{units/bootstrap::copy}"></div>
+
+<div th:insert="~{units/navbar::copy}"></div>
+
+<div id="inf_user_in_alert" class="alert alert-primary" role="alert">
+    Your owner information:<br>
+    name: <b th:text="${user.name}"></b><br>
+    surname: <b th:text="${user.surname}"></b><br>
+    login: <b th:text="${user.login}"></b><br>
+    role: <b>User</b><br>
+    email: <b th:text="${user.email}"></b>
+</div>
+
+<br><br><br><br><br><br>
+
+<a class="btn btn-primary" style="width: 200px" th:href="@{{uri}/edit/data(uri=${uri})}" role="button">Change owner data
+    <i class="fa fa-book"
+       aria-hidden="true"></i></a>
+
+<br><br>
+
+<a class="btn btn-primary" style="width: 200px" th:href="@{{uri}/edit/password(uri=${uri})}" role="button">Change
+    password <i
+            class="fa fa-book"
+            aria-hidden="true"></i></a>
+
+<div id="footer-date" th:insert="~{units/date::copy}"></div>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration form</title>
+</head>
+<body>
+
+<div th:insert="~{units/bootstrap::copy}"></div>
+
+<div th:insert="~{units/navbar::copy}"></div>
+
+<br>
+
+<h1 style="text-align:center">Please fill out this form to <span class="badge text-bg-danger">register</span> a new user
+</h1>
+
+<br>
+
+<div class="container-fluid" id="form">
+    <form th:method="POST" th:action="@{{uri}(uri=${uri})}" th:object="${object}" class="row g-3">
+        <div class="col-md-4">
+            <label for="name">Name <i class="fa fa-user icon"></i></label>
+            <input type="text" th:field="*{name}" id="name" class="form-control"/>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-danger" role="alert"/>
+        </div>
+
+        <div class="col-md-4">
+            <label for="surname">Surname <i class="fa fa-user icon"></i></label>
+            <input type="text" th:field="*{surname}" id="surname" class="form-control"/>
+            <div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="alert alert-danger"
+                 role="alert"/>
+        </div>
+
+        <div class="col-md-4">
+            <label for="role">Role <i class="fa fa-user icon"></i></label>
+            <select th:field="*{role}" class="form-select" id="role">
+                <option th:each="role : ${allRoles}"
+                        th:value="${'ROLE_'+role.toUpperCase()}"
+                        th:text="${role}">
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label for="login">Login <i class="fa fa-key icon"></i></label>
+            <input type="text" th:field="*{login}" id="login" class="form-control"/>
+            <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="alert alert-danger" role="alert"/>
+        </div>
+
+        <div class="col-md-4">
+            <label for="password">Password <i class="fa fa-key icon"></i></label>
+            <input type="password" th:field="*{password}" id="password" class="form-control"/>
+            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-danger"
+                 role="alert"/>
+        </div>
+
+        <div class="col-md-4">
+            <label for="email">Email <i class="fa fa-envelope"></i></label>
+            <input type="email" th:field="*{email}" id="email" class="form-control"/>
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger" role="alert"/>
+        </div>
+
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit">Registration</button>
+        </div>
+
+    </form>
+</div>
+
+
+</body>
+</html>

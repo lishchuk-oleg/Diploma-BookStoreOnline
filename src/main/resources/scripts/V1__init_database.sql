@@ -1,0 +1,1 @@
+CREATE database if not exists my_project;

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+
+<div th:fragment="all-over">
+
+    <form class="d-flex" role="search" method="get" th:action="@{/library/search/page/1}">
+        <input required class="form-control me-2" name="text" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+
+</div>
+
+<div th:fragment="by-author">
+
+    <form class="d-flex" role="search" method="get" th:action="@{/authors/search/page/1}">
+        <input required class="form-control me-2" name="text" type="search" placeholder="Search author" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Author</button>
+    </form>
+
+</div>
+
+<div th:fragment="by-book">
+
+    <form class="d-flex" role="search" method="get" th:action="@{/books/search/page/1}">
+        <input required class="form-control me-2" name="text" type="search" placeholder="Search book" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Book</button>
+    </form>
+
+</div>
+
+</body>
+</html>

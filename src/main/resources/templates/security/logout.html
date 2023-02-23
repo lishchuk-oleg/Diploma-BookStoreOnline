@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logout</title>
+</head>
+<body>
+
+<div th:fragment="admin">
+
+    <div class="container-fluid" id="logout-admin">
+
+        <form th:method="GET" th:action="@{/admin/logout}" class="row g-3">
+
+            <button class="btn btn-light" type="submit">Sign Out <i class="fas fa-sign-out-alt" aria-hidden="true"></i></button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div th:fragment="user">
+
+    <div class="container-fluid" id="logout-user">
+
+        <form th:method="GET" th:action="@{/client/logout}" class="row g-3">
+
+            <button class="btn btn-light" type="submit">Sign Out <i class="fas fa-sign-out-alt" aria-hidden="true"></i></button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

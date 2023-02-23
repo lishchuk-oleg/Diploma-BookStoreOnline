@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit user</title>
+</head>
+<body>
+
+<div th:insert="~{units/bootstrap::copy}"></div>
+
+<div th:insert="~{units/navbar-admin::copy}"></div>
+
+    <h1 style="text-align:center">Please fill out this form to <span class="badge text-bg-danger">edit</span> a user</h1>
+
+
+<div class="container-fluid" id="form">
+    <form th:method="PATCH" th:action="@{{uri}/{id}(id=${object.id},uri=${uri})}" th:object="${object}" class="row g-3">
+        <div class="col-md-4">
+            <label for="name">Name</label>
+            <input type="text" th:field="*{name}" id="name" class="form-control" style="color: coral"/>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-danger" role="alert"/>
+        </div>
+
+        <div class="col-md-4">
+            <label for="surname">Surname</label>
+            <input type="text" th:field="*{surname}" id="surname" class="form-control" style="color: coral"/>
+            <div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="alert alert-danger"
+                 role="alert"/>
+        </div>
+
+        <div class="col-md-4">
+            <label for="role">Role</label>
+            <select th:field="*{role}" class="form-select" id="role" style="color: coral">
+                <option th:value="ROLE_USER" selected>User</option>
+                <option th:value="ROLE_MENTOR">Mentor</option>
+                <option th:value="ROLE_ADMIN">Admin</option>
+            </select>
+            <div th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="alert alert-danger" role="alert"/>
+        </div>
+
+        <div class="col-md-4">
+            <label for="login">Login</label>
+            <input readonly type="text" th:field="*{login}" id="login" class="form-control" style="color: darkgray"/>
+            <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="alert alert-danger" role="alert"/>
+        </div>
+
+        <div class="col-md-4">
+            <label for="password">Password</label>
+            <input type="text" th:field="*{password}" id="password" class="form-control" placeholder="**********" style="color: coral"/>
+            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-danger"
+                 role="alert"/>
+        </div>
+
+        <div class="col-md-4">
+            <label for="email">Email</label>
+            <input readonly type="email" th:field="*{email}" id="email" class="form-control" style="color: darkgray"/>
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger" role="alert"/>
+        </div>
+
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit">Update</button>
+        </div>
+    </form>
+</div>
+
+<br><br><br>
+
+<div class="container-fluid" id="form-delete">
+    <form th:method="DELETE" th:action="@{{uri}/{id}(id=${object.id},uri=${uri})}" class="row g-3">
+        <div class="col-12">
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

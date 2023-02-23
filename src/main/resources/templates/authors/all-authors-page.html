@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All authors</title>
+</head>
+<body>
+<div th:insert="~{units/bootstrap::copy}"></div>
+
+<div th:insert="~{units/navbar-admin::copy}"></div>
+
+<br>
+
+<div id="author_in_alert" class="alert alert-primary" role="alert">
+    <h1 th:text="${search!=null? search:'All authors'}"></h1>
+</div>
+
+<div id="button" class="btn-group" role="group">
+    <a class="btn btn-success" th:href="@{{uri}/new(uri=${uri})}" role="button">Add new author</a>
+</div>
+
+<br>
+
+<div th:if="${list==null or list.isEmpty()}">
+
+    <div id="no_data_found" class="alert alert-primary" role="alert">
+        <h1>No data was found for your query</h1>
+    </div>
+
+</div>
+
+<div th:if="${list!=null and !list.isEmpty()}">
+
+    <div id="table" class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th th:replace="units/sorting :: sorting('id','ID')"></th>
+                <th th:replace="units/sorting :: sorting('name','Name')"></th>
+                <th th:replace="units/sorting :: sorting('surname','Surname')"></th>
+                <th scope="col">Year of birth</th>
+                <th scope="col">Year of death</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Books</th>
+            </tr>
+            </thead>
+            <tbody>
+            <div th:each="entity : ${list}">
+                <tr>
+                    <td th:text="${entity.id}"></td>
+                    <td th:text="${entity.name}"></td>
+                    <td th:text="${entity.surname}"></td>
+                    <td th:text="${entity.birthYear}"></td>
+                    <td th:text="${entity.deathYear}"></td>
+
+                    <td>
+                        <a th:href="@{{uri}/{id}/edit(id=${entity.id},uri=${uri})}"
+                           class="btn btn-primary" type="button"><i
+                                class="fa fa-edit" aria-hidden="true"></i> </a>
+                    </td>
+
+                    <td>
+                        <a th:href="@{{uri}/{id}/books/page/1(id=${entity.id},uri=${uri})}"
+                           class="btn btn-primary" type="button"><i
+                                class="fa fa-book-open" aria-hidden="true"></i> </a>
+                    </td>
+
+                </tr>
+            </div>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div id="pagin">
+
+    <th:block th:replace="units/paginate :: pagination(${list})"></th:block>
+
+</div>
+
+
+</body>
+</html>

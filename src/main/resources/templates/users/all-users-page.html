@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All users</title>
+</head>
+<body>
+<div th:insert="~{units/bootstrap::copy}"></div>
+
+<div th:insert="~{units/navbar-admin::copy}"></div>
+
+<br>
+
+<div id="button" class="btn-group" role="group">
+    <a class="btn btn-success" th:href="@{{uri}/new(uri=${uri})}" role="button">Add new user</a>
+</div>
+
+<div th:if="${list==null or list.isEmpty()}">
+
+    <div id="no_data_found" class="alert alert-primary" role="alert">
+        <h1>No data was found for your query</h1>
+    </div>
+
+</div>
+
+<div th:if="${list!=null and !list.isEmpty()}">
+
+    <div id="table" class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th th:replace="units/sorting :: sorting('id','ID')"></th>
+                <th th:replace="units/sorting :: sorting('name','Name')"></th>
+                <th th:replace="units/sorting :: sorting('surname','Surname')"></th>
+                <th th:replace="units/sorting :: sorting('login','Login')"></th>
+                <th th:replace="units/sorting :: sorting('role','Role')"></th>
+                <th scope="col">Email</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Order</th>
+            </tr>
+            </thead>
+            <tbody>
+            <div th:each="entity : ${list}">
+                <tr>
+                    <td th:text="${entity.id}"></td>
+                    <td th:text="${entity.name}"></td>
+                    <td th:text="${entity.surname}"></td>
+                    <td th:text="${entity.login}"></td>
+                    <td th:text="${entity.role.replace('ROLE_','')}"></td>
+                    <td th:text="${entity.email}"></td>
+                    <td><a th:href="@{{uri}/{id}/edit(id=${entity.id},uri=${uri})}" class="btn btn-primary"
+                           type="button"><i
+                            class="fa fa-edit" aria-hidden="true"></i> </a></td>
+<div th:if="${entity.role!='ROLE_ADMIN'}">
+                    <td><a th:href="@{/items/users/{id}/page/1(id=${entity.id})}" class="btn btn-primary"
+                           type="button"><i class="fa fa-shopping-cart" aria-hidden="true"></i> </a></td>
+</div>
+                </tr>
+            </div>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div id="pagin">
+
+    <th:block th:replace="units/paginate :: pagination(${list})"></th:block>
+
+</div>
+
+</body>
+</html>

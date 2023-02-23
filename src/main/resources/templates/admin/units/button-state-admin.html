@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>State</title>
+</head>
+<body>
+
+<div th:fragment="copy">
+
+    <div id="admin-button" class="btn-group" role="group">
+
+        <div th:if="${item.state.toString()!='CHANGING' and item.state.toString()!='CANCELLED' and item.state.toString()!='EXECUTED'}">
+
+            <div th:if="${item.state.toString()=='CREATE'}">
+                <a class="btn btn-info" th:href="@{{uri}/{id}?state=PROGRESS (id=${item.id},uri=${uri})}"
+                   role="button">TO PROGRESS <i
+                        class="fa fa-share" aria-hidden="true"></i></a>
+                <button type="button" class="btn btn-secondary"
+                        style="background-color: rgba(28,28,28,0);border: 0"></button>
+            </div>
+
+            <div th:if="${item.state.toString()=='PROGRESS'}">
+
+                <a class="btn btn-info" th:href="@{{uri}/{id}?state=CHANGING (id=${item.id},uri=${uri})}"
+                   role="button">CHANGE <i
+                        class="fa fa-share" aria-hidden="true"></i></a>
+                <button type="button" class="btn btn-secondary"
+                        style="background-color: rgba(28,28,28,0);border: 0"></button>
+
+                <a class="btn btn-info" th:href="@{{uri}/{id}?state=EXECUTED (id=${item.id},uri=${uri})}"
+                   role="button">EXECUTE <i
+                        class="fa fa-share" aria-hidden="true"></i></a>
+                <button type="button" class="btn btn-secondary"
+                        style="background-color: rgba(28,28,28,0);border: 0"></button>
+
+                <a class="btn btn-info" th:href="@{{uri}/{id}?state=CANCELLED (id=${item.id},uri=${uri})}"
+                   role="button">CANCEL <i class="fa fa-share" aria-hidden="true"></i></a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

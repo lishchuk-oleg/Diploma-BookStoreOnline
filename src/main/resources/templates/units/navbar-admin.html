@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar-admin</title>
+</head>
+<body>
+
+<div th:fragment="copy">
+
+    <nav class="navbar navbar-expand-md fixed-top" style="height: 60px">
+        <a class="navbar-brand" th:href="@{/}">
+            <img th:src="@{/images/image-brand.png}" alt="Book-online" id="brand">
+        </a>
+        <div th:insert="~{units/search::by-author}"></div>
+
+        <button type="button" class="btn btn-secondary"
+                style="background-color: rgba(28,28,28,0);border: 0"></button>
+
+        <div th:insert="~{units/search::by-book}"></div>
+
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav ">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Action
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/users/page/1}">Users</a></li>
+                        <li><a class="dropdown-item" th:href="@{/authors/page/1}">Authors</a></li>
+                        <li><a class="dropdown-item" th:href="@{/books/page/1}">Books</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" th:href="@{/items/page/1?state=ALL}">Items</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a th:href="@{/library}" class="btn btn-outline-secondary" type="button"><i class="fa fa-book" aria-hidden="true"></i> Library</a>
+                </li>
+
+                <li class="nav-item">
+                    <a th:href="@{/}" class="btn btn-outline-secondary" type="button"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div th:insert="~{admin/units/button-menu-admin::copy}"></div>
+
+</div>
+
+
+</body>
+</html>

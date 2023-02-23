@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Front page</title>
+</head>
+
+<body id="index">
+
+<div th:insert="~{units/bootstrap::copy}"></div>
+
+<div th:insert="~{units/navbar::copy}"></div>
+
+<div sec:authorize="isAnonymous()">
+
+    <div th:insert="~{security/login::copy}"></div>
+
+</div>
+
+<!--<div sec:authorize="isAuthenticated()">
+
+        <div id="user_hello_in_alert">
+            <h2><b>Hello,
+                <span th:text="${#authentication.getPrincipal().getCurrentUser().getName()}"></span>
+                <span th:text="${#authentication.getPrincipal().getCurrentUser().getSurname()}"></span>
+            </b>
+            </h2>
+        </div>
+
+</div>-->
+
+<br><br><br>
+
+<h1 style="text-align:center">Welcome to our library !!!!</h1>
+
+<br><br>
+
+<div th:if="${registration!=null}">
+
+    <div id="author_in_alert" class="alert alert-primary" role="alert">
+        <h4>Congratulations on your successful registration</h4>
+        <h4>Use your login and password to log in</h4>
+    </div>
+
+</div>
+
+
+<div id="footer-date" th:insert="~{units/date::copy}"></div>
+
+</body>
+</html>

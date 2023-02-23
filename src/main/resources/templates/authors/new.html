@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add author</title>
+</head>
+<body>
+
+<div th:insert="~{units/bootstrap::copy}"></div>
+
+<div th:insert="~{units/navbar-admin::copy}"></div>
+
+<br>
+
+<h1 style="text-align:center">Please fill out this form to <span class="badge text-bg-danger">add</span> a new author
+</h1>
+
+<br>
+
+<div class="container-fluid" id="form">
+    <form th:method="POST" th:action="@{{uri}(uri=${uri})}" th:object="${object}" class="row g-3">
+        <div class="col-md-5">
+            <label for="name">Name</label>
+            <input type="text" th:field="*{name}" id="name" class="form-control"/>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-danger" role="alert"/>
+        </div>
+
+        <div class="col-md-5">
+            <label for="surname">Surname</label>
+            <input type="text" th:field="*{surname}" id="surname" class="form-control"/>
+            <div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="alert alert-danger"
+                 role="alert"/>
+        </div>
+        <br>
+        <div class="col-md-5">
+            <label for="birthYear">Year of birth</label>
+            <input type="number" th:field="*{birthYear}" id="birthYear" class="form-control"/>
+            <div th:if="${#fields.hasErrors('birthYear')}" th:errors="*{birthYear}" class="alert alert-danger"
+                 role="alert"/>
+        </div>
+
+        <div class="col-md-5">
+            <label for="deathYear">Year of death</label>
+            <input type="number" th:field="*{deathYear}" id="deathYear" class="form-control"/>
+            <div th:if="${#fields.hasErrors('deathYear')}" th:errors="*{deathYear}" class="alert alert-danger"
+                 role="alert"/>
+        </div>
+
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit">Registration</button>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

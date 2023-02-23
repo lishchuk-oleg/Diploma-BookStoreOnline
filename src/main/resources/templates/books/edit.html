@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit author</title>
+</head>
+<body>
+
+<div th:insert="~{units/bootstrap::copy}"></div>
+
+<div th:insert="~{units/navbar-admin::copy}"></div>
+
+<br>
+
+<h1 style="text-align:center">Please fill out this form to <span class="badge text-bg-danger">edit</span> the book</h1>
+
+<br>
+
+<div class="container-fluid" id="form">
+    <form th:method="PATCH" th:action="@{{uri}/{id}(id=${object.id},uri=${uri})}" th:object="${object}" class="row g-3">
+        <div class="col-md-5">
+            <label for="name">Title</label>
+            <input type="text" th:field="*{name}" id="name" class="form-control"/>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-danger" role="alert"/>
+        </div>
+
+        <div class="col-md-5">
+            <label for="author">Author</label>
+            <input readonly type="hidden" th:field="*{author}" id="author" class="form-control" style="color: darkgray"/>
+            <input readonly type="text" th:placeholder="${object.author.name+' '+object.author.surname}" class="form-control" style="color: darkgray"/>
+        </div>
+
+        <div class="col-md-5">
+            <label for="genreBook">Book genre</label>
+            <select th:field="*{genreBook}" class="form-control" id="genreBook">
+                <option th:each="genre : ${allGenres}"
+                        th:value="${genre}"
+                        th:text="${genre}">
+                </option>
+            </select>
+            <div th:if="${#fields.hasErrors('genreBook')}" th:errors="*{genreBook}" class="alert alert-danger"
+                 role="alert"/>
+        </div>
+
+        <br>
+        <div class="col-md-5">
+            <label for="year">Year</label>
+            <input type="number" th:field="*{year}" id="year" class="form-control"/>
+            <div th:if="${#fields.hasErrors('year')}" th:errors="*{year}" class="alert alert-danger"
+                 role="alert"/>
+        </div>
+
+        <div class="col-md-5">
+            <label for="amount">Amount</label>
+            <input type="number" min="0" th:field="*{amount}" id="amount" class="form-control"/>
+            <div th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}" class="alert alert-danger"
+                 role="alert"/>
+        </div>
+
+        <div class="col-md-5">
+            <label for="price">Price</label>
+            <input type="number" min="0" step="any" th:field="*{price}" id="price" class="form-control"/>
+            <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="alert alert-danger"
+                 role="alert"/>
+        </div>
+
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit">Update</button>
+        </div>
+    </form>
+</div>
+
+<br><br><br>
+
+<div class="container-fluid" id="form-delete">
+    <form th:method="DELETE" th:action="@{{uri}/{id}(id=${object.id},uri=${uri})}" class="row g-3">
+        <div class="col-12">
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

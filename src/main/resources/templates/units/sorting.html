@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sorting</title>
+</head>
+<body>
+
+
+<th scope="col" th:fragment="sorting(field, label)">
+    <a th:href="@{{path}/{currentPage}?sortField={field}&sortDir={reverseSortDir}&size={size}(path=${path},currentPage=${currentPage},field=${field},reverseSortDir=${reverseSortDir},size=${size})}">
+        [[${label}]] </a>
+    <div th:if="${sortField == field}"
+         th:class="${reverseSortDir == 'ASC' ? 'fas fa-sort-amount-up' : 'fas fa-sort-amount-down-alt'}">
+    </div>
+</th>
+
+</body>-
+</html>
